@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'chat_screeen.dart';
 
 class ContactScreen extends StatefulWidget {
-  const ContactScreen({super.key});
+  final String senderId;
+  const ContactScreen({super.key, required this.senderId});
 
   @override
   State<ContactScreen> createState() =>
@@ -19,7 +20,7 @@ class _ContactScreenState
   bool isLoading = true;
 
   /// YOUR MOBILE NUMBER
-  final String myNumber = "9999999999";
+  final String myNumber = "";
 
   @override
   void initState() {
@@ -131,7 +132,7 @@ class _ContactScreenState
                   builder: (_) => ChatScreen(
 
                     /// MY NUMBER
-                    senderId: myNumber,
+                    senderId: widget.senderId,
 
                     /// CONTACT NUMBER
                     receiverId: phone,

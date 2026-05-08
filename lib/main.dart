@@ -1,5 +1,6 @@
 
 import 'package:dpl/provider/chat_provider.dart';
+import 'package:dpl/screens/NumberScreen.dart';
 
 import 'package:dpl/screens/contact_screen.dart';
 import 'package:dpl/splash.dart';
@@ -112,8 +113,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
-   //   home: const SplashPage(),
-      home: const ContactScreen(),
+    // home: const SplashPage(),
+      home: const NumberScreen(),
     );
   }
 }

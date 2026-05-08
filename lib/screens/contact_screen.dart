@@ -16,12 +16,15 @@ class _ContactScreenState
     extends State<ContactScreen> {
 
   List<Contact> contacts = [];
-
+  /// FILTERED CONTACTS
+  List<Contact> filteredContacts = [];
   bool isLoading = true;
 
   /// YOUR MOBILE NUMBER
   final String myNumber = "";
 
+  final TextEditingController searchController =
+  TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -36,7 +39,7 @@ class _ContactScreenState
 
       contacts =
       await FastContacts.getAllContacts();
-
+      filteredContacts = contacts;
       print("TOTAL CONTACTS: ${contacts.length}");
 
     } catch (e) {
@@ -47,7 +50,38 @@ class _ContactScreenState
     setState(() {
       isLoading = false;
     });
+
+
+
   }
+  void searchContact(String value) {
+
+    if (value.isEmpty) {
+
+      filteredContacts = contacts;
+
+    } else {
+
+      filteredContacts = contacts.where((contact) {
+
+        final name =
+        contact.displayName.toLowerCase();
+
+        final phone = contact.phones.isNotEmpty
+            ? contact.phones.first.number
+            : "";
+
+        return name.contains(
+          value.toLowerCase(),
+        ) ||
+            phone.contains(value);
+
+      }).toList();
+    }
+
+    setState(() {});
+  }
+// SEARCH CONTACT
 
   /// CLEAN PHONE NUMBER
   String cleanNumber(String number) {
@@ -68,80 +102,126 @@ class _ContactScreenState
         title: const Text("Contacts"),
       ),
 
-      body: isLoading
+      body:  isLoading
 
           ? const Center(
         child: CircularProgressIndicator(),
       )
 
-          : contacts.isEmpty
+          : Column(
+        children: [
 
-          ? const Center(
-        child: Text("No Contacts Found"),
-      )
+          /// SEARCH BOX
+          Padding(
+            padding: const EdgeInsets.all(10),
 
-          : ListView.builder(
+            child: TextField(
 
-        itemCount: contacts.length,
+              controller: searchController,
 
-        itemBuilder: (context, index) {
+              onChanged: searchContact,
 
-          final contact = contacts[index];
+              decoration: InputDecoration(
 
-          /// GET NUMBER
-          String phone = "";
+                hintText: "Search contact",
 
-          if (contact.phones.isNotEmpty) {
+                prefixIcon:
+                const Icon(Icons.search),
 
-            phone = cleanNumber(
-              contact.phones.first.number,
-            );
-          }
-
-          return ListTile(
-
-            leading: CircleAvatar(
-              child: Text(
-                contact.displayName.isNotEmpty
-                    ? contact.displayName[0]
-                    : "?",
+                border: OutlineInputBorder(
+                  borderRadius:
+                  BorderRadius.circular(12),
+                ),
               ),
             ),
+          ),
 
-            title: Text(
-              contact.displayName,
-            ),
+          /// CONTACT LIST
+          Expanded(
+            child: filteredContacts.isEmpty
 
-            subtitle: Text(
-              phone.isEmpty
-                  ? "No Number"
-                  : phone,
-            ),
+                ? const Center(
+              child: Text(
+                "No Contact Found",
+              ),
+            )
 
-            /// OPEN CHAT
-            onTap: phone.isEmpty
-                ? null
-                : () {
+                : ListView.builder(
 
-              Navigator.push(
+              itemCount:
+              filteredContacts.length,
 
-                context,
+              itemBuilder:
+                  (context, index) {
 
-                MaterialPageRoute(
+                final contact =
+                filteredContacts[index];
 
-                  builder: (_) => ChatScreen(
+                String phone = "";
 
-                    /// MY NUMBER
-                    senderId: widget.senderId,
+                if (contact
+                    .phones.isNotEmpty) {
 
-                    /// CONTACT NUMBER
-                    receiverId: phone,
+                  phone = cleanNumber(
+                    contact
+                        .phones
+                        .first
+                        .number,
+                  );
+                }
+
+                return ListTile(
+
+                  leading: CircleAvatar(
+                    child: Text(
+
+                      contact.displayName
+                          .isNotEmpty
+
+                          ? contact
+                          .displayName[0]
+
+                          : "?",
+                    ),
                   ),
-                ),
-              );
-            },
-          );
-        },
+
+                  title: Text(
+                    contact.displayName,
+                  ),
+
+                  subtitle: Text(
+                    phone.isEmpty
+                        ? "No Number"
+                        : phone,
+                  ),
+
+                  onTap: phone.isEmpty
+                      ? null
+                      : () {
+
+                    Navigator.push(
+
+                      context,
+
+                      MaterialPageRoute(
+
+                        builder: (_) =>
+                            ChatScreen(
+
+                              senderId:
+                              widget.senderId,
+
+                              receiverId:
+                              phone,
+                            ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

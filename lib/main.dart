@@ -1,16 +1,12 @@
 
 import 'package:dpl/provider/chat_provider.dart';
 import 'package:dpl/screens/NumberScreen.dart';
-
-import 'package:dpl/screens/contact_screen.dart';
 import 'package:dpl/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:app_links/app_links.dart';
 import 'dart:async';
-
 import 'package:provider/provider.dart';
-
 import 'StudentProvider.dart';
 
 Future<void> main() async {

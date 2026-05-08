@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "457770896149",
+    "project_id": "flutter-table-app-2026",
+    "storage_bucket": "flutter-table-app-2026.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457770896149:android:915616aaec6cb0313fb71c",
+        "android_client_info": {
+          "package_name": "com.dream.dpl"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEN-DmPeHcHQgbn5KCYTNhVzSo0Z3bOIQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

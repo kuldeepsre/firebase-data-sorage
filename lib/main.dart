@@ -1,4 +1,7 @@
 
+import 'package:dpl/provider/chat_provider.dart';
+
+import 'package:dpl/screens/contact_screen.dart';
 import 'package:dpl/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,10 @@ Future<void> main() async {
         providers: [
           ChangeNotifierProvider(
             create: (_) => StudentProvider(),
+          ),
+
+          ChangeNotifierProvider(
+            create: (_) => ChatProvider(),
           ),
         ],
         child: const MyApp(),
@@ -106,7 +113,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
    //   home: const SplashPage(),
-      home: const HomePage(),
+      home: const ContactScreen(),
     );
   }
 }

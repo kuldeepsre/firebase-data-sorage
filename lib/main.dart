@@ -1,6 +1,14 @@
 
+import 'package:dpl/provider/DashboardProvider.dart';
+import 'package:dpl/provider/PaymentProvider.dart';
+import 'package:dpl/provider/TodoProvider.dart';
 import 'package:dpl/provider/chat_provider.dart';
+import 'package:dpl/provider/postPRovider.dart';
 import 'package:dpl/screens/NumberScreen.dart';
+import 'package:dpl/screens/PaymentScreen.dart';
+import 'package:dpl/screens/PsotScreen.dart';
+import 'package:dpl/screens/dashboard.dart';
+import 'package:dpl/screens/todo_screen.dart';
 import 'package:dpl/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +16,7 @@ import 'package:app_links/app_links.dart';
 import 'dart:async';
 import 'package:provider/provider.dart';
 import 'StudentProvider.dart';
+import 'model/post_responnse.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +30,18 @@ Future<void> main() async {
 
           ChangeNotifierProvider(
             create: (_) => ChatProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => PostProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => TodoProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => DashboardProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => PaymentProvider(),
           ),
         ],
         child: const MyApp(),
@@ -109,8 +130,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
-    // home: const SplashPage(),
-      home: const NumberScreen(),
+       // home: const SplashPage(),
+      // home: const NumberScreen(),
+     // home:  TodoScreen(),
+    //   home:  DashboardScreen(),
+    home:  PaymentScreen(),
     );
   }
 }

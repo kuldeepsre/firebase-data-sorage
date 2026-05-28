@@ -1,4 +1,5 @@
 
+import 'package:dpl/provider/ApiProvider.dart';
 import 'package:dpl/provider/DashboardProvider.dart';
 import 'package:dpl/provider/PaymentProvider.dart';
 import 'package:dpl/provider/TodoProvider.dart';
@@ -7,6 +8,7 @@ import 'package:dpl/provider/postPRovider.dart';
 import 'package:dpl/screens/NumberScreen.dart';
 import 'package:dpl/screens/PaymentScreen.dart';
 import 'package:dpl/screens/PsotScreen.dart';
+import 'package:dpl/screens/api_cal.dart';
 import 'package:dpl/screens/dashboard.dart';
 import 'package:dpl/screens/todo_screen.dart';
 import 'package:dpl/splash.dart';
@@ -43,6 +45,7 @@ Future<void> main() async {
           ChangeNotifierProvider(
             create: (_) => PaymentProvider(),
           ),
+          ChangeNotifierProvider(create: (_)=>ApiProvider())
         ],
         child: const MyApp(),
       ));
@@ -134,7 +137,8 @@ class _MyAppState extends State<MyApp> {
       // home: const NumberScreen(),
      // home:  TodoScreen(),
     //   home:  DashboardScreen(),
-    home:  PaymentScreen(),
+  //  home:  PaymentScreen(),
+    home:  APICallScreen(),
     );
   }
 }

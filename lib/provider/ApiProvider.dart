@@ -40,8 +40,8 @@ class ApiProvider extends ChangeNotifier {
         jsonDecode(response.body);
         _result =
         'ID: ${responseData['id']}\n'
-            'Name: ${responseData['name']}\n'
-            'Email: ${responseData['email']}';
+
+           ;
       } else {
         _result = 'Failed to post data';
       }
